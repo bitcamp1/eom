@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 
-@Aspect
+/*@Aspect
 public class LogAspect {
 	
 	@Before("execution (* *..service.*.*(..))")
@@ -26,3 +26,4 @@ public class LogAspect {
 		System.out.println(">>>>> logAfterReturning()...");
 	}
 }
+*/
