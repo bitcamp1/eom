@@ -1,8 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    	   xmlns:context="http://www.springframework.org/schema/context"
+    	   xmlns:tx="http://www.springframework.org/schema/tx"
+    	   xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       	http://www.springframework.org/schema/beans 
+       	http://www.springframework.org/schema/beans/spring-beans.xsd
+       	http://www.springframework.org/schema/context
+       	http://www.springframework.org/schema/context/spring-context.xsd
+       	http://www.springframework.org/schema/tx
+       	http://www.springframework.org/schema/tx/spring-tx.xsd
+       	http://www.springframework.org/schema/aop
+       	http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="net.bitacademy.java33"/>
+    
+    <aop:aspectj-autoproxy/>
+    
+    <tx:annotation-driven transaction-manager="txManager"/>
+    
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+    		<property name="dataSource" ref="dataSource" />
+    		<property name="mapperLocations" 
+    		     value="classpath*:net/bitacademy/java33/dao/*Dao.xml" />
+    		<property name="typeAliasesPackage" 
+    		     value="net.bitacademy.java33.vo" />
+    </bean>
+
+    <bean id="dataSource" 
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	    <property name="url" value="jdbc:mysql://localhost/studydb"/>
+	    <property name="username" value="study"/>
+	    <property name="password" value="study"/>
+	</bean>
 	
-	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+    <!-- 인터페이페이스와 SQL 매퍼파일을 참고하여 DAO 구현체 준비 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="net.bitacademy.java33.dao" />
+	</bean>
+	
+    <bean id="txManager" 
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+    <!-- AOP 등록 -->
+    <!--  
+    <bean class="net.bitacademy.java33.aspects.LogAspect"/>
+    -->
 </beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

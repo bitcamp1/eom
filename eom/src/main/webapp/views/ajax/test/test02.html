@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>비동기 AJAX</title>
+<script>
+
+var xhr;
+
+function processResponse() {
+	//console.log(xhr.readyState);
+	if (xhr.readyState == 4) { 
+		if (xhr.status == 200) {
+			console.log(xhr.responseText);
+		} else {
+			window.alert("서버에서 오류가 발생했습니다.");
+		}
+	}
+}
+
+function requestAjax() {
+	xhr = new XMLHttpRequest();	
+	
+	//서버에서 요청이 왔을 때 호출될 함수를 등록한다.
+	xhr.onreadystatechange = processResponse; 
+	
+	xhr.open('GET', 'test01.jsp', true); // 세번째 파라미터: 비동기 요청 
+	
+	xhr.send();
+}
+
+</script>
+</head>
+<body>
+<input type="button" onclick="requestAjax();" value="테스트">
+</body>
+</html>

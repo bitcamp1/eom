@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>동기 AJAX</title>
+<script>
+
+function requestAjax() {
+	var xhr = new XMLHttpRequest();	
+	xhr.open('GET', 'test01.jsp', false);
+	xhr.send();
+	
+	window.alert("서버 요청했습니다.");
+	
+	console.log(xhr.responseText);
+}
+
+</script>
+</head>
+<body>
+<input type="button" onclick="requestAjax();" value="테스트">
+</body>
+</html>
